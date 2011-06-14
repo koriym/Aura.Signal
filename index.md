@@ -254,7 +254,7 @@ First we define the handlers; note that the second one returns the `STOP` consta
     $signal->handler(
         'Vendor\Package\Example',
         'mock_signal',
-        function() { return \aura\signal\Manager::STOP; }
+        function() { return \Aura\Signal\Manager::STOP; }
     );
     
     $signal->handler(
