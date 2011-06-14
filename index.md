@@ -15,10 +15,10 @@ Basic Usage
 Instantiating the Signal Manager
 --------------------------------
 
-First, instantiate the signal `Manager` class. The easiest way to do this is to call the `aura.signal/scripts/instance.php` script.
+First, instantiate the signal `Manager` class. The easiest way to do this is to call the `Aura.Signal/scripts/instance.php` script.
 
     <?php
-    $signal = require '/path/to/aura.signal/scripts/instance.php';
+    $signal = require '/path/to/Aura.Signal/scripts/instance.php';
 
 
 Adding Signal Handlers
@@ -32,11 +32,11 @@ Before we can send a signal to the `Manager`, we will need to add a handler for 
 
 3. A closure or callback to handle the signal.
 
-For example, to add a closure that will be executed every time an object of the class `vendor\package\Example` sends a signal called `'example_signal'`:
+For example, to add a closure that will be executed every time an object of the class `Vendor\Package\Example` sends a signal called `'example_signal'`:
 
     <?php
     $signal->handler(
-        'vendor\package\Example',
+        'Vendor\Package\Example',
         'example_signal',
         function ($arg) { echo $arg; }
     );
@@ -47,11 +47,11 @@ Signals By Class
 
 To send a signal, the sending class must have an instance of the `Manager`.  The class should call the `send()` method with the originating object (itself), the signal being sent, and arguments to pass to the signal handler.
 
-For example, we will define the `vendor\package\Example` class, and have it send a signal to the `Manager`. 
+For example, we will define the `Vendor\Package\Example` class, and have it send a signal to the `Manager`. 
 
     <?php
-    namespace vendor\package;
-    use aura\signal\Manager as SignalManager;
+    namespace Vendor\Package;
+    use Aura\Signal\Manager as SignalManager;
     
     class Example
     {
@@ -80,8 +80,8 @@ If a class sends a signal, and no handler has been set for it, then the `Manager
 For example, if we have these two classes, and call `doSomethingElse()` on each of them ...
 
     <?php
-    namespace vendor\package;
-    use aura\signal\Manager as SignalManager;
+    namespace Vendor\Package;
+    use Aura\Signal\Manager as SignalManager;
     
     class ExampleChild extends Example
     {
@@ -118,9 +118,9 @@ It is possible to tie a handler to an object instance, so that only signals sent
 
     <?php
     /**
-     * @var aura\signal\Manager $signal
+     * @var Aura\Signal\Manager $signal
      */
-    $object = new vendor\package\ExampleChild($signal);
+    $object = new Vendor\Package\ExampleChild($signal);
     
     $signal->handler(
         $object,
@@ -131,8 +131,8 @@ It is possible to tie a handler to an object instance, so that only signals sent
 If that specific object instance sends the `example_signal` then the handler will be triggered, but no other instance of `ExampleChild` will trigger the handler when it sends the same signal.  This is useful for setting signal handlers from within an object that contains its own callback; for example:
 
     <?php
-    namespace vendor\package;
-    use aura\signal\Manager as SignalManager;
+    namespace Vendor\Package;
+    use Aura\Signal\Manager as SignalManager;
     
     class ExampleAnotherChild extends Example
     {
@@ -246,19 +246,19 @@ First we define the handlers; note that the second one returns the `STOP` consta
     <?php
     // add signal handlers
     $signal->handler(
-        'vendor\package\Example',
+        'Vendor\Package\Example',
         'mock_signal',
         function() { return 'first'; }
     );
     
     $signal->handler(
-        'vendor\package\Example',
+        'Vendor\Package\Example',
         'mock_signal',
         function() { return \aura\signal\Manager::STOP; }
     );
     
     $signal->handler(
-        'vendor\package\Example',
+        'Vendor\Package\Example',
         'mock_signal',
         function() { return 'third'; }
     );
@@ -290,19 +290,19 @@ Given this file at `/path/to/signal_handlers.php` ...
     return array(
         // first handler, with a closure
         array(
-            'vendor\package\Example',
+            'Vendor\Package\Example',
             'mock_signal',
             function() { return 'foo'; },
         ),
         // second handler, with a static callback
         array(
-            'vendor\package\Example',
+            'Vendor\Package\Example',
             'mock_signal',
-            array('vendor\package\SomeClass', 'someMethod'),
+            array('Vendor\Package\SomeClass', 'someMethod'),
         ),
         // third handler, with a closure and position
         array(
-            'vendor\package\Example',
+            'Vendor\Package\Example',
             'mock_signal',
             function() { return 'baz'; },
             1000,
@@ -312,7 +312,7 @@ Given this file at `/path/to/signal_handlers.php` ...
 ... we can configure a `Manager` like so:
 
     <?php
-    namespace aura\signal;
+    namespace Aura\Signal;
     $handlers = require '/path/to/signal_handlers.php';
     $signal = new Manager(
         new HandlerFactory,
