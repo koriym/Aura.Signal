@@ -1,5 +1,5 @@
 ---
-title: The Aura Signal package is a SignalSlots / EventHandler implementation for PHP 5.3+
+title: Aura for PHP: SignalSlots Implementation
 layout: default
 ---
 
