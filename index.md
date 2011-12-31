@@ -1,5 +1,5 @@
 ---
-title: Aura for PHP; SignalSlots Implementation
+title: Aura for PHP: SignalSlots Implementation
 layout: default
 ---
 
@@ -139,8 +139,8 @@ If that specific object instance sends the `example_signal` then the handler wil
         public function __construct(SignalManager $signal)
         {
             parent::__construct();
-            $this->signal->handler($this, 'preAction', array($this, 'preAction'));
-            $this->signal->handler($this, 'postAction', array($this, 'postAction'));
+            $this->signal->handler($this, 'preAction', [$this, 'preAction']);
+            $this->signal->handler($this, 'postAction', [$this, 'postAction']);
         }
         
         public function action()
@@ -287,27 +287,27 @@ It is possible to set the `Handler` definitions for a `Manager` at construction 
 Given this file at `/path/to/signal_handlers.php` ...
 
     <?php
-    return array(
+    return [
         // first handler, with a closure
-        array(
+        [
             'Vendor\Package\Example',
             'mock_signal',
             function() { return 'foo'; },
-        ),
+        ],
         // second handler, with a static callback
-        array(
+        [
             'Vendor\Package\Example',
             'mock_signal',
-            array('Vendor\Package\SomeClass', 'someMethod'),
-        ),
+            ['Vendor\Package\SomeClass', 'someMethod'],
+        ],
         // third handler, with a closure and position
-        array(
+        [
             'Vendor\Package\Example',
             'mock_signal',
             function() { return 'baz'; },
             1000,
-        ),
-    );
+        ],
+    ];
 
 ... we can configure a `Manager` like so:
 
