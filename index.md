@@ -1,5 +1,5 @@
 ---
-title: Aura for PHP: SignalSlots Implementation
+title: Aura for PHP -- SignalSlots Implementation
 layout: default
 ---
 
